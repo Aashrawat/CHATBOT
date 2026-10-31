@@ -6,7 +6,7 @@ Chat with your own PDFs and photos. Answers come only from what you upload, with
 
 ```powershell
 uv pip install -r requirements.txt     # once
-copy .env.example .env                 # then put your OPENAI_API_KEY in .env
+copy .env               # then put your OPENAI_API_KEY in .env
 .venv\Scripts\python.exe -m uvicorn app.main:app --port 8000
 ```
 
