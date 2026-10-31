@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DocuLens - chat with your PDFs and photos</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="logo">&#9673;</div>
+      <div class="topbar-title">
+        <div class="brand-name">DocuLens</div>
+        <div class="brand-sub">Ask questions about your PDFs and photos</div>
+      </div>
+      <button class="ghost-btn" id="clearChat">New chat</button>
+    </header>
+
+    <div class="banner" id="banner" hidden></div>
+
+    <section class="messages" id="messages">
+      <div class="empty" id="empty">
+        <div class="empty-logo">&#9673;</div>
+        <h1>What would you like to know?</h1>
+        <p>Tap <b>+</b> to attach a PDF, take a photo, or pick one from your gallery, then ask your question.</p>
+        <div class="suggestions">
+          <button class="chip" data-q="Summarize this document.">Summarize this document</button>
+          <button class="chip" data-q="What are the most important numbers or dates mentioned?">Key numbers &amp; dates</button>
+          <button class="chip" data-q="What does this image show?">Explain this image</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="composer-wrap">
+      <div class="attachments" id="attachments"></div>
+      <div class="composer">
+        <div class="menu-wrap">
+          <button class="icon-btn round" id="plusBtn" aria-label="Add camera photo, photos or files" title="Add camera photo, photos or files">+</button>
+          <div class="menu" id="menu" hidden>
+            <button id="menuCamera">
+              <span class="menu-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5a2 2 0 0 1 2-2h1.6l1.2-1.8a1 1 0 0 1 .8-.4h6.8a1 1 0 0 1 .8.4l1.2 1.8h1.6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-14a2 2 0 0 1-2-2z"/><circle cx="12" cy="12.8" r="3.3"/></svg>
+              </span>
+              <span class="menu-label">Camera</span>
+            </button>
+            <button id="menuGallery">
+              <span class="menu-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="3.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17.5l4.6-4.6a1.5 1.5 0 0 1 2.1 0l5.3 5.3"/><path d="M14 15.2l1.3-1.3a1.5 1.5 0 0 1 2.1 0l2.6 2.6"/></svg>
+              </span>
+              <span class="menu-label">Photos</span>
+            </button>
+            <button id="menuPdf">
+              <span class="menu-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.4l-7.7 7.7a4.6 4.6 0 0 1-6.5-6.5l8-8a3.1 3.1 0 0 1 4.4 4.4l-8 8a1.5 1.5 0 0 1-2.2-2.2l7.4-7.4"/></svg>
+              </span>
+              <span class="menu-label">Files</span>
+            </button>
+          </div>
+        </div>
+        <textarea id="input" rows="1" placeholder="Ask about your PDFs or photos..."></textarea>
+        <button class="send" id="sendBtn" aria-label="Send" disabled>&#10148;</button>
+      </div>
+      <div class="composer-foot">
+        <span class="hint">Answers come only from what you attach. Enter to send, Shift+Enter for a new line.</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- hidden pickers -->
+  <input type="file" id="galleryInput" accept="image/*" multiple hidden />
+  <input type="file" id="captureInput" accept="image/*" capture="environment" hidden />
+  <input type="file" id="pdfInput" accept="application/pdf" multiple hidden />
+
+  <!-- camera modal -->
+  <div class="modal" id="cameraModal" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <span>Take a photo</span>
+        <button class="icon-btn" id="camClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="cam-view">
+        <video id="camVideo" autoplay playsinline muted></video>
+        <div class="cam-error" id="camError" hidden></div>
+      </div>
+      <div class="cam-actions">
+        <button class="ghost-btn" id="camSwitch">Switch camera</button>
+        <button class="shutter" id="camShoot" aria-label="Capture"></button>
+        <button class="ghost-btn" id="camCancel">Cancel</button>
+      </div>
+      <canvas id="camCanvas" hidden></canvas>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" hidden><img id="lightboxImg" alt="" /></div>
+  <div class="toasts" id="toasts"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
